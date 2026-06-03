@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAZ Naturals — Natural Beauty Starts Here</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+</head>
+<body>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">SAZ Naturals</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION (Woman with Products Background) ===== -->
+    <section class="hero" id="home">
+        <div class="hero-image-wrapper">
+            <img src="images/hero-woman-products.jpg" alt="SAZ Naturals" class="hero-poster"
+                 onerror="this.remove();"
+                 onload="this.style.display='block'; this.parentElement.querySelector('.hero-poster-fallback').style.display='none';">
+            <div class="hero-poster-fallback">
+                <div class="hero-fallback-content">
+                    <h2>SAZ Naturals</h2>
+                    <p>Natural Beauty Starts Here</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-brand-center">
+            <div class="hero-brand-logo">🌿</div>
+            <h1 class="hero-brand-name">SAZ Naturals</h1>
+            <p class="hero-brand-tagline">Natural Beauty Starts Here</p>
+            <div class="hero-brand-divider"></div>
+            <p class="hero-brand-desc">Handcrafted with love. Powered by nature.</p>
+        </div>
+        <div class="hero-bottom-gradient"></div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">About Us</span>
+                <h2>The SAZ Naturals Story</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-image fade-in">
+                    <div class="about-image-wrapper">
+                        <img src="images/about-saaz.jpg" alt="About SAZ Naturals" class="about-img"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                             onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+                        <div class="about-img-fallback" style="display:flex;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text fade-in">
+                    <p>SAZ Naturals was born from a simple belief — that the most effective beauty products come straight from nature. We combine traditional African herbal knowledge with modern skincare science to create products that truly nourish.</p>
+                    <div class="about-mission">
+                        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                        <p>To provide accessible, natural beauty solutions that enhance your natural glow without harmful chemicals.</p>
+                    </div>
+                    <div class="about-values">
+                        <h3><i class="fas fa-heart"></i> Our Values</h3>
+                        <ul>
+                            <li><strong>Purity</strong> — No parabens, sulfates, or synthetic fragrances</li>
+                            <li><strong>Sustainability</strong> — Eco-friendly packaging & ethical sourcing</li>
+                            <li><strong>Tradition</strong> — Time-tested natural ingredients from Africa</li>
+                            <li><strong>Quality</strong> — Every product is handmade in small batches</li>
+                        </ul>
+                    </div>
+                    <div class="about-quote">
+                        <i class="fas fa-quote-left"></i>
+                        <p>Why settle for chemicals when nature provides everything you need?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTS SECTION ===== -->
+    <section class="products section" id="products">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Collection</span>
+                <h2>Shop by Category</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="hair">Hair Care</button>
+                <button class="filter-btn" data-category="skin">Skin Care</button>
+                <button class="filter-btn" data-category="oils">Oils</button>
+                <button class="filter-btn" data-category="handmade">Handmade</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ===== BENEFITS SECTION ===== -->
+    <section class="benefits section" id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Why Choose Us</span>
+                <h2>Nature's Best for Your Beauty</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>100% Natural Ingredients</h3>
+                    <p>Every ingredient is carefully selected from nature. No synthetic additives, just pure botanical goodness.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-hand-sparkles"></i></div>
+                    <h3>Handmade with Care</h3>
+                    <p>Each product is crafted in small batches with love and attention to detail, ensuring the highest quality.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-female"></i></div>
+                    <h3>Suitable for All Hair Types</h3>
+                    <p>Whether your hair is curly, coily, straight, or transitioning — our products are formulated for everyone.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-flask"></i></div>
+                    <h3>Chemical-Free Formulas</h3>
+                    <p>No parabens, sulfates, silicones, or synthetic fragrances. Just pure, safe ingredients you can trust.</p>
+                </div>
+            </div>
+            <div class="benefits-cta fade-in">
+                <p>Ready to transform your beauty routine?</p>
+                <a href="#products" class="btn btn-primary">Explore Our Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY SECTION ===== -->
+    <section class="gallery section" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Gallery</span>
+                <h2>See the Difference</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <div class="gallery-img"><i class="fas fa-leaf"></i></div>
+                    <div class="gallery-overlay">
+                        <span>Product Showcase</span>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-img"><i class="fas fa-spa"></i></div>
+                    <div class="gallery-overlay">
+                        <span>Before & After</span>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-img"><i class="fas fa-smile"></i></div>
+                    <div class="gallery-overlay">
+                        <span>Happy Customers</span>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-img"><i class="fas fa-hand-holding-heart"></i></div>
+                    <div class="gallery-overlay">
+                        <span>Handmade Process</span>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-img"><i class="fas fa-flower"></i></div>
+                    <div class="gallery-overlay">
+                        <span>Natural Ingredients</span>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-img"><i class="fas fa-gem"></i></div>
+                    <div class="gallery-overlay">
+                        <span>Product Range</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Get In Touch</span>
+                <h2>We'd Love to Hear From You</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>Contact Us</h3>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp</strong>
+                            <p><a href="https://wa.me/255655799575" target="_blank" rel="noopener">+255 655 799 575</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>+255 655 799 575</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-tiktok"></i>
+                        <div>
+                            <strong>TikTok</strong>
+                            <p><a href="https://tiktok.com/@saaznaturals" target="_blank" rel="noopener">@saaznaturals</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p><a href="mailto:hello@saaznaturals.com">hello@saaznaturals.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-social">
+                        <a href="https://wa.me/255655799575" target="_blank" rel="noopener" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://tiktok.com/@saaznaturals" target="_blank" rel="noopener" class="social-icon tiktok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/saz_naturals?igsh=Z2g4dHdhY2ZweWJ5" target="_blank" rel="noopener" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form fade-in" id="contactForm">
+                    <h3>Send a Message</h3>
+                    <div class="form-group">
+                        <input type="text" id="formName" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="formEmail" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="formSubject" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="formMessage" rows="5" placeholder="Your Message..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-icon">🌿</span>
+                    <h3>SAZ Naturals</h3>
+                    <p>Natural Beauty Starts Here</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#benefits">Benefits</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <p><i class="fab fa-whatsapp"></i> +255 655 799 575</p>
+                    <p><i class="fas fa-envelope"></i> hello@saaznaturals.com</p>
+                    <p><i class="fab fa-tiktok"></i> @saaznaturals</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> SAZ Naturals. All rights reserved.</p>
+                <p>Visitors: <span id="visitorCount">0</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+    <a href="https://wa.me/255655799575?text=Hi%20SAZ%20Naturals!%20I'd%20like%20to%20know%20more%20about%20your%20products." target="_blank" rel="noopener" class="whatsapp-float" id="whatsappFloat" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
