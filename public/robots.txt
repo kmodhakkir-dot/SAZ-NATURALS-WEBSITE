@@ -1,10 +1,4 @@
 User-agent: *
-Allow: /
 Disallow: /admin
-Disallow: /checkout
-Disallow: /success
-Disallow: /#/admin
-Disallow: /#/checkout
-Disallow: /#/success
-
-Sitemap: https://saznaturals.com/sitemap.xml
+Disallow: /assets/
+Sitemap: https://saz-naturals.netlify.app/sitemap.xml

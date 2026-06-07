@@ -10,10 +10,10 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Checkout from './components/Checkout'
 import OrderSuccess from './components/OrderSuccess'
+import AdminLoginModal from './components/AdminLoginModal'
 import { CartProvider } from './hooks/useCart'
 import { OrdersProvider } from './hooks/useOrders'
 import { useHashRoute } from './hooks/useHashRoute'
-import { isAdmin } from './services/authService'
 
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'))
 
@@ -25,47 +25,11 @@ function LoadingSpinner() {
   )
 }
 
-function AdminGate({ children, onAdminReady }) {
-  const [status, setStatus] = useState('checking')
-  const [userEmail, setUserEmail] = useState('')
-
-  useEffect(() => {
-    let mounted = true
-    isAdmin().then((result) => {
-      if (!mounted) return
-      // result is an object: { isAdmin, email }
-      if (result?.isAdmin) {
-        setUserEmail(result.email || '')
-        setStatus('admin')
-        if (onAdminReady) onAdminReady(result.email)
-      } else {
-        setStatus('login')
-      }
-    }).catch(() => {
-      if (mounted) setStatus('login')
-    })
-    return () => { mounted = false }
-  }, [])
-
-  if (status === 'checking') return <LoadingSpinner />
-  if (status === 'admin') return children
-  return <AdminLoginRedirect />
-}
-
-function AdminLoginRedirect() {
-  // AdminDashboard itself shows the login form when not authenticated.
-  // Render it directly with a notice.
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <AdminDashboard onLogout={() => { window.location.hash = '' }} onBack={() => { window.location.hash = '' }} />
-    </Suspense>
-  )
-}
-
 export default function App() {
   const [isDark, setIsDark] = useState(false)
   const [page, setPage] = useState('home')
   const [completedOrder, setCompletedOrder] = useState(null)
+  const [showAdminLogin, setShowAdminLogin] = useState(false)
   const { path, navigate } = useHashRoute()
 
   // Sync internal page state with hash router
@@ -79,7 +43,10 @@ export default function App() {
     setCompletedOrder(order)
     navigate('/success')
   }
-  const goToAdmin = () => navigate('/admin')
+  const goToAdmin = () => {
+    setShowAdminLogin(false)
+    navigate('/admin')
+  }
   const goHome = () => {
     setCompletedOrder(null)
     navigate('/')
@@ -102,19 +69,23 @@ export default function App() {
                     <Gallery />
                     <Contact />
                   </main>
-                  <Footer onAdminClick={goToAdmin} />
+                  <Footer onAdminClick={() => setShowAdminLogin(true)} />
                 </>
               )}
               {page === 'checkout' && <Checkout onBack={goHome} onSuccess={goToSuccess} />}
               {page === 'success' && <OrderSuccess order={completedOrder} onBack={goHome} />}
               {page === 'admin' && (
-                <AdminGate>
-                  <Suspense fallback={<LoadingSpinner />}>
-                    <AdminDashboard onLogout={goHome} onBack={goHome} />
-                  </Suspense>
-                </AdminGate>
+                <Suspense fallback={<LoadingSpinner />}>
+                  <AdminDashboard onLogout={goHome} onBack={goHome} />
+                </Suspense>
               )}
             </div>
+            {showAdminLogin && (
+              <AdminLoginModal
+                onClose={() => setShowAdminLogin(false)}
+                onSuccess={goToAdmin}
+              />
+            )}
           </div>
         </ErrorBoundary>
       </OrdersProvider>

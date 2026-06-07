@@ -1,7 +1,18 @@
 export default function Footer({ onAdminClick }) {
   const year = new Date().getFullYear()
-  const onLinkClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+  const handleSectionClick = (e, sectionId) => {
+    e.preventDefault()
+    const el = document.getElementById(sectionId)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      // If not on home page, navigate there first, then scroll
+      window.location.hash = ''
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 100)
+    }
   }
 
   return (
@@ -30,17 +41,17 @@ export default function Footer({ onAdminClick }) {
           <div>
             <h3 className="font-semibold text-foreground mb-3">Shop</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="/#products" className="text-foreground/70 hover:text-primary-500 transition-colors">All Products</a></li>
-              <li><a href="/#about" className="text-foreground/70 hover:text-primary-500 transition-colors">About Us</a></li>
-              <li><a href="/#gallery" className="text-foreground/70 hover:text-primary-500 transition-colors">Gallery</a></li>
-              <li><a href="/#contact" className="text-foreground/70 hover:text-primary-500 transition-colors">Contact</a></li>
+              <li><a href="#products" onClick={e => handleSectionClick(e, 'products')} className="text-foreground/70 hover:text-primary-500 transition-colors">All Products</a></li>
+              <li><a href="#about" onClick={e => handleSectionClick(e, 'about')} className="text-foreground/70 hover:text-primary-500 transition-colors">About Us</a></li>
+              <li><a href="#gallery" onClick={e => handleSectionClick(e, 'gallery')} className="text-foreground/70 hover:text-primary-500 transition-colors">Gallery</a></li>
+              <li><a href="#contact" onClick={e => handleSectionClick(e, 'contact')} className="text-foreground/70 hover:text-primary-500 transition-colors">Contact</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-foreground mb-3">Customer Service</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#/refund-policy" onClick={onLinkClick} className="text-foreground/70 hover:text-primary-500 transition-colors">Refund & Delivery</a></li>
+              <li><a href="#/refund-policy" className="text-foreground/70 hover:text-primary-500 transition-colors">Refund & Delivery</a></li>
               <li><a href="https://wa.me/255655799575" target="_blank" rel="noopener noreferrer" className="text-foreground/70 hover:text-primary-500 transition-colors">WhatsApp Support</a></li>
               <li><a href="mailto:info@saznaturals.com" className="text-foreground/70 hover:text-primary-500 transition-colors">Email Us</a></li>
             </ul>
@@ -49,9 +60,9 @@ export default function Footer({ onAdminClick }) {
           <div>
             <h3 className="font-semibold text-foreground mb-3">Legal</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#/privacy-policy" onClick={onLinkClick} className="text-foreground/70 hover:text-primary-500 transition-colors">Privacy Policy</a></li>
-              <li><a href="#/terms-of-service" onClick={onLinkClick} className="text-foreground/70 hover:text-primary-500 transition-colors">Terms of Service</a></li>
-              <li><a href="#/refund-policy" onClick={onLinkClick} className="text-foreground/70 hover:text-primary-500 transition-colors">Refund Policy</a></li>
+              <li><a href="#/privacy-policy" className="text-foreground/70 hover:text-primary-500 transition-colors">Privacy Policy</a></li>
+              <li><a href="#/terms-of-service" className="text-foreground/70 hover:text-primary-500 transition-colors">Terms of Service</a></li>
+              <li><a href="#/refund-policy" className="text-foreground/70 hover:text-primary-500 transition-colors">Refund Policy</a></li>
             </ul>
           </div>
         </div>
@@ -63,9 +74,7 @@ export default function Footer({ onAdminClick }) {
               Admin
             </button>
             <span className="text-foreground/30">•</span>
-            <a href="/sitemap.xml" className="text-foreground/40 hover:text-foreground/70 text-xs transition-colors">Sitemap</a>
-            <span className="text-foreground/30">•</span>
-            <a href="/robots.txt" className="text-foreground/40 hover:text-foreground/70 text-xs transition-colors">Robots</a>
+            <a href="/sitemap.xml" target="_blank" className="text-foreground/40 hover:text-foreground/70 text-xs transition-colors">Sitemap</a>
           </div>
         </div>
       </div>
