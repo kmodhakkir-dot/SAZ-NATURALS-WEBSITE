@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /checkout
+Disallow: /success
+Disallow: /#/admin
+Disallow: /#/checkout
+Disallow: /#/success
+
+Sitemap: https://saznaturals.com/sitemap.xml

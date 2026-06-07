@@ -1,15 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SAZ Naturals — Natural Beauty Starts Here</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2d7a3a" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Primary Meta Tags -->
+  <title>SAZ Naturals — Natural Beauty Starts Here</title>
+  <meta name="title" content="SAZ Naturals — Natural Beauty Starts Here" />
+  <meta name="description" content="Handcrafted natural hair oils, body lotions, and skincare products made in Tanzania. Pure ingredients, real results. Shop now." />
+  <meta name="keywords" content="natural beauty, organic skincare, hair oil Tanzania, body lotion, handmade cosmetics, SAZ Naturals, Dar es Salaam" />
+  <meta name="author" content="SAZ Naturals" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://saznaturals.com/" />
+  <meta property="og:title" content="SAZ Naturals — Natural Beauty Starts Here" />
+  <meta property="og:description" content="Handcrafted natural hair oils, body lotions, and skincare products made in Tanzania. Pure ingredients, real results." />
+  <meta property="og:image" content="https://saznaturals.com/images/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SAZ Naturals — Handcrafted natural beauty products from Tanzania" />
+  <meta property="og:site_name" content="SAZ Naturals" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://saznaturals.com/" />
+  <meta name="twitter:title" content="SAZ Naturals — Natural Beauty Starts Here" />
+  <meta name="twitter:description" content="Handcrafted natural hair oils, body lotions, and skincare products made in Tanzania. Pure ingredients, real results." />
+  <meta name="twitter:image" content="https://saznaturals.com/images/og-cover.jpg" />
+  <meta name="twitter:image:alt" content="SAZ Naturals — Natural beauty from Tanzania" />
+
+  <!-- LinkedIn / X -->
+  <meta property="og:image:secure_url" content="https://saznaturals.com/images/og-cover.jpg" />
+
+  <!-- WhatsApp (uses OG) -->
+  <meta property="og:locale:alternate" content="sw_TZ" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SAZ Naturals",
+    "alternateName": "SAZ Organics",
+    "url": "https://saznaturals.com/",
+    "logo": "https://saznaturals.com/favicon.svg",
+    "description": "Handcrafted natural hair oils, body lotions, and skincare products made in Tanzania.",
+    "foundingDate": "2022",
+    "founders": [
+      {
+        "@type": "Person",
+        "name": "SAZ Naturals Founder"
+      }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dar es Salaam",
+      "addressLocality": "Dar es Salaam",
+      "addressRegion": "Dar es Salaam",
+      "postalCode": "11000",
+      "addressCountry": "TZ"
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+255-655-799-575",
+        "contactType": "customer service",
+        "areaServed": "TZ",
+        "availableLanguage": ["English", "Swahili"]
+      },
+      {
+        "@type": "ContactPoint",
+        "email": "info@saznaturals.com",
+        "contactType": "customer service"
+      }
+    ],
+    "sameAs": [
+      "https://wa.me/255655799575",
+      "https://facebook.com/saznaturals",
+      "https://instagram.com/saznaturals"
+    ],
+    "contactType": "customer support"
+  }
+  </script>
+
+  <!-- JSON-LD LocalBusiness Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "SAZ Naturals",
+    "image": "https://saznaturals.com/favicon.svg",
+    "url": "https://saznaturals.com/",
+    "telephone": "+255-655-799-575",
+    "priceRange": "TZS",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dar es Salaam",
+      "addressLocality": "Dar es Salaam",
+      "addressRegion": "Dar es Salaam",
+      "postalCode": "11000",
+      "addressCountry": "TZ"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
