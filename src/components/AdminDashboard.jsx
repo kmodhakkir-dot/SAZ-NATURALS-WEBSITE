@@ -586,8 +586,35 @@ export default function AdminDashboard({ onLogout, onBack }) {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                      <input type="text" value={pForm.image} onChange={e => setPForm(p => ({ ...p, image: e.target.value }))} className="w-full px-3 py-2 rounded-lg border border-gray-300 outline-none" />
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Image</label>
+                      <div className="flex gap-2">
+                        <input type="text" value={pForm.image} onChange={e => setPForm(p => ({ ...p, image: e.target.value }))} placeholder="Image URL" className="flex-1 px-3 py-2 rounded-lg border border-gray-300 outline-none text-sm" />
+                        <label className="shrink-0 flex items-center gap-1 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 text-sm font-medium cursor-pointer hover:bg-gray-200">
+                          <span>📁</span>
+                          <span className="hidden sm:inline">Upload</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={e => {
+                              const file = e.target.files?.[0]
+                              if (!file) return
+                              const reader = new FileReader()
+                              reader.onload = (ev) => {
+                                if (typeof ev.target?.result === 'string') {
+                                  setPForm(p => ({ ...p, image: ev.target.result }))
+                                }
+                              }
+                              reader.readAsDataURL(file)
+                            }}
+                          />
+                        </label>
+                      </div>
+                      {pForm.image && (
+                        <div className="mt-2">
+                          <img src={pForm.image} alt="Preview" className="w-16 h-16 object-cover rounded-lg border border-gray-200" onError={e => e.target.style.display = 'none'} />
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex gap-2 mt-6">
