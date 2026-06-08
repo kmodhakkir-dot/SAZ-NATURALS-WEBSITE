@@ -1,4 +1,5 @@
 import { useState, Suspense, lazy, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -10,10 +11,13 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Checkout from './components/Checkout'
 import OrderSuccess from './components/OrderSuccess'
+import OrderTracking from './components/OrderTracking'
 import AdminLoginModal from './components/AdminLoginModal'
+import ProtectedRoute from './components/ProtectedRoute'
+import PrivacyPolicy from './components/legal/PrivacyPolicy'
+import TermsOfService from './components/legal/TermsOfService'
+import RefundPolicy from './components/legal/RefundPolicy'
 import { CartProvider } from './hooks/useCart'
-import { OrdersProvider } from './hooks/useOrders'
-import { useHashRoute } from './hooks/useHashRoute'
 
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'))
 
@@ -25,70 +29,76 @@ function LoadingSpinner() {
   )
 }
 
-export default function App() {
-  const [isDark, setIsDark] = useState(false)
-  const [page, setPage] = useState('home')
-  const [completedOrder, setCompletedOrder] = useState(null)
-  const [showAdminLogin, setShowAdminLogin] = useState(false)
-  const { path, navigate } = useHashRoute()
+function HomePage() {
+  const [isDark, setIsDark] = useState(() => localStorage.getItem('theme') === 'dark')
 
-  // Sync internal page state with hash router
   useEffect(() => {
-    setPage(path)
-  }, [path])
+    const saved = localStorage.getItem('theme')
+    if (saved) {
+      const dark = saved === 'dark'
+      document.documentElement.classList.toggle('dark', dark)
+      setIsDark(dark)
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.classList.toggle('dark', prefersDark)
+      setIsDark(prefersDark)
+    }
+  }, [])
 
-  const toggleTheme = () => setIsDark(!isDark)
-  const goToCheckout = () => navigate('/checkout')
-  const goToSuccess = (order) => {
-    setCompletedOrder(order)
-    navigate('/success')
+  const toggleTheme = () => {
+    setIsDark(prev => {
+      const next = !prev
+      document.documentElement.classList.toggle('dark', next)
+      localStorage.setItem('theme', next ? 'dark' : 'light')
+      return next
+    })
   }
-  const goToAdmin = () => {
-    setShowAdminLogin(false)
-    navigate('/admin')
-  }
-  const goHome = () => {
-    setCompletedOrder(null)
-    navigate('/')
-  }
+
+  const [showAdminLogin, setShowAdminLogin] = useState(false)
 
   return (
+    <>
+      <Navbar isDark={isDark} toggleTheme={toggleTheme} />
+      <main>
+        <Hero isDark={isDark} />
+        <About />
+        <Products />
+        <Benefits />
+        <Gallery />
+        <Contact />
+      </main>
+      <Footer onAdminClick={() => setShowAdminLogin(true)} />
+      {showAdminLogin && (
+        <AdminLoginModal
+          onClose={() => setShowAdminLogin(false)}
+          onSuccess={() => { setShowAdminLogin(false); window.location.hash = '/admin' }}
+        />
+      )}
+    </>
+  )
+}
+
+export default function App() {
+  return (
     <CartProvider>
-      <OrdersProvider>
-        <ErrorBoundary>
-          <div className={isDark ? 'dark' : ''}>
-            <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-              {page === 'home' && (
-                <>
-                  <Navbar isDark={isDark} toggleTheme={toggleTheme} onCartClick={goToCheckout} />
-                  <main>
-                    <Hero isDark={isDark} />
-                    <About />
-                    <Products onAddToCart={goToCheckout} />
-                    <Benefits />
-                    <Gallery />
-                    <Contact />
-                  </main>
-                  <Footer onAdminClick={() => setShowAdminLogin(true)} />
-                </>
-              )}
-              {page === 'checkout' && <Checkout onBack={goHome} onSuccess={goToSuccess} />}
-              {page === 'success' && <OrderSuccess order={completedOrder} onBack={goHome} />}
-              {page === 'admin' && (
-                <Suspense fallback={<LoadingSpinner />}>
-                  <AdminDashboard onLogout={goHome} onBack={goHome} />
-                </Suspense>
-              )}
-            </div>
-            {showAdminLogin && (
-              <AdminLoginModal
-                onClose={() => setShowAdminLogin(false)}
-                onSuccess={goToAdmin}
-              />
-            )}
-          </div>
-        </ErrorBoundary>
-      </OrdersProvider>
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/checkout" element={<ErrorBoundary><Checkout /></ErrorBoundary>} />
+          <Route path="/success/:orderId" element={<ErrorBoundary><OrderSuccess /></ErrorBoundary>} />
+          <Route path="/track" element={<ErrorBoundary><OrderTracking /></ErrorBoundary>} />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <Suspense fallback={<LoadingSpinner />}>
+                <AdminDashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } />
+          <Route path="/privacy" element={<ErrorBoundary><PrivacyPolicy /></ErrorBoundary>} />
+          <Route path="/terms" element={<ErrorBoundary><TermsOfService /></ErrorBoundary>} />
+          <Route path="/refund" element={<ErrorBoundary><RefundPolicy /></ErrorBoundary>} />
+        </Routes>
+      </div>
     </CartProvider>
   )
 }
