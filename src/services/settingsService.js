@@ -47,16 +47,16 @@ function getDefaultSettings() {
   return {
     business_name: 'SAZ Naturals',
     business_logo: '/images/pure-growth-oil.jpg',
-    whatsapp_number: '255655799575',
-    merchant_number: '255655799575',
+    whatsapp_number: '255759747338',
+    merchant_number: '255759747338',
     merchant_name: 'SAZ Naturals',
-    qr_image: '/images/tigopesa-qr.jpg',
-    contact_phone: '+255 655 799 575',
-    contact_email: '',
+    qr_image: '/images/tigo-pesa-qr-v2.jpg',
+    contact_phone: '+255 759 747 338',
+    contact_email: 'info@saznaturals.com',
     business_address: 'Tanzania',
-    facebook: '',
-    instagram: '',
-    tiktok: '@sazorganicss',
+    facebook: 'https://facebook.com/saznaturals',
+    instagram: 'https://instagram.com/saznaturals',
+    tiktok: '@saznaturals',
     delivery_fee: '3000',
     min_order: '0'
   }
@@ -64,8 +64,8 @@ function getDefaultSettings() {
 
 export const TIGO_PESA_MERCHANT = {
   name: 'SAZ Naturals',
-  number: '255655799575',
-  qrImage: '/images/tigopesa-qr.jpg'
+  number: '255759747338',
+  qrImage: '/images/tigo-pesa-qr-v2.jpg'
 }
 
 export const TANZANIA_REGIONS = [
