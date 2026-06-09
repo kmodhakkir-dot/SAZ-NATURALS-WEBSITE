@@ -6,11 +6,8 @@ export async function getGallery() {
     .select('*')
     .order('id', { ascending: true })
 
-  if (error) {
-    console.error('Error fetching gallery:', error)
-    return []
-  }
-  return data || []
+  if (error) return { data: [], error: error.message }
+  return { data: data || [], error: null }
 }
 
 export async function addGalleryItem(item) {
@@ -19,11 +16,8 @@ export async function addGalleryItem(item) {
     .insert([item])
     .select()
 
-  if (error) {
-    console.error('Error adding gallery item:', error)
-    return null
-  }
-  return data?.[0] || null
+  if (error) return { data: null, error: error.message }
+  return { data: data?.[0] || null, error: null }
 }
 
 export async function updateGalleryItem(id, updates) {
@@ -33,11 +27,8 @@ export async function updateGalleryItem(id, updates) {
     .eq('id', id)
     .select()
 
-  if (error) {
-    console.error('Error updating gallery item:', error)
-    return null
-  }
-  return data?.[0] || null
+  if (error) return { data: null, error: error.message }
+  return { data: data?.[0] || null, error: null }
 }
 
 export async function deleteGalleryItem(id) {
@@ -46,9 +37,6 @@ export async function deleteGalleryItem(id) {
     .delete()
     .eq('id', id)
 
-  if (error) {
-    console.error('Error deleting gallery item:', error)
-    return false
-  }
-  return true
+  if (error) return { data: false, error: error.message }
+  return { data: true, error: null }
 }

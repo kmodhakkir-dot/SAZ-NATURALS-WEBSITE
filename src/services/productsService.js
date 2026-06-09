@@ -6,11 +6,8 @@ export async function getProducts() {
     .select('*')
     .order('id', { ascending: true })
 
-  if (error) {
-    console.error('Error fetching products:', error)
-    return []
-  }
-  return data || []
+  if (error) return { data: [], error: error.message }
+  return { data: data || [], error: null }
 }
 
 export async function addProduct(product) {
@@ -19,11 +16,8 @@ export async function addProduct(product) {
     .insert([product])
     .select()
 
-  if (error) {
-    console.error('Error adding product:', error)
-    return null
-  }
-  return data?.[0] || null
+  if (error) return { data: null, error: error.message }
+  return { data: data?.[0] || null, error: null }
 }
 
 export async function updateProduct(id, updates) {
@@ -33,11 +27,8 @@ export async function updateProduct(id, updates) {
     .eq('id', id)
     .select()
 
-  if (error) {
-    console.error('Error updating product:', error)
-    return null
-  }
-  return data?.[0] || null
+  if (error) return { data: null, error: error.message }
+  return { data: data?.[0] || null, error: null }
 }
 
 export async function deleteProduct(id) {
@@ -46,11 +37,8 @@ export async function deleteProduct(id) {
     .delete()
     .eq('id', id)
 
-  if (error) {
-    console.error('Error deleting product:', error)
-    return false
-  }
-  return true
+  if (error) return { data: false, error: error.message }
+  return { data: true, error: null }
 }
 
 export const categories = [
@@ -61,5 +49,4 @@ export const categories = [
   { id: 'handmade', label: 'Handmade' }
 ]
 
-export const WHATSAPP_NUMBER = '255655799575'
-export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`
+export { WHATSAPP_NUMBER, WHATSAPP_URL } from '../constants'

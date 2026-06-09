@@ -10,37 +10,36 @@ export const ORDER_STATUSES = [
 ]
 
 export async function changePassword(currentPassword, newPassword) {
-  // Use Supabase auth updateUser to change password
+  const { data: userData } = await supabase.auth.getUser()
+  const email = userData?.user?.email
+  if (!email) return { success: false, error: 'Not authenticated' }
+  // Re-authenticate first
+  const { error: reauthError } = await supabase.auth.signInWithPassword({ email, password: currentPassword })
+  if (reauthError) return { success: false, error: 'Current password is incorrect' }
   const { error } = await supabase.auth.updateUser({ password: newPassword })
-  if (error) return false
-  return true
+  if (error) return { success: false, error: error.message }
+  return { success: true }
 }
 
 export async function getSettings() {
   const { data, error } = await supabase
     .from('settings')
     .select('*')
-    .eq('id', 1)
+    .eq('key', 'global')
     .single()
 
-  if (error) {
-    console.error('Error fetching settings:', error)
-    return getDefaultSettings()
-  }
-  return data || getDefaultSettings()
+  if (error) return { data: getDefaultSettings(), error: null }
+  return { data: data || getDefaultSettings(), error: null }
 }
 
 export async function saveSettings(settings) {
   const { data, error } = await supabase
     .from('settings')
-    .upsert({ id: 1, ...settings })
+    .upsert({ key: 'global', ...settings })
     .select()
 
-  if (error) {
-    console.error('Error saving settings:', error)
-    return null
-  }
-  return data?.[0] || null
+  if (error) return { data: null, error: error.message }
+  return { data: data?.[0] || null, error: null }
 }
 
 function getDefaultSettings() {
@@ -62,11 +61,7 @@ function getDefaultSettings() {
   }
 }
 
-export const TIGO_PESA_MERCHANT = {
-  name: 'SAZ Naturals',
-  number: '255759747338',
-  qrImage: '/images/tigo-pesa-qr-v2.jpg'
-}
+export { TIGO_PESA_MERCHANT } from '../constants'
 
 export const TANZANIA_REGIONS = [
   'Arusha', 'Dar es Salaam', 'Dodoma', 'Geita', 'Iringa', 'Kagera',
