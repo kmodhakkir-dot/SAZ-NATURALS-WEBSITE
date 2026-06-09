@@ -30,29 +30,18 @@ function LoadingSpinner() {
 }
 
 function HomePage() {
-  const [isDark, setIsDark] = useState(() => localStorage.getItem('theme') === 'dark')
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('theme')
+    if (saved) return saved === 'dark'
+    return false
+  })
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme')
-    if (saved) {
-      const dark = saved === 'dark'
-      document.documentElement.classList.toggle('dark', dark)
-      setIsDark(dark)
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      document.documentElement.classList.toggle('dark', prefersDark)
-      setIsDark(prefersDark)
-    }
-  }, [])
+    document.documentElement.classList.toggle('dark', isDark)
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+  }, [isDark])
 
-  const toggleTheme = () => {
-    setIsDark(prev => {
-      const next = !prev
-      document.documentElement.classList.toggle('dark', next)
-      localStorage.setItem('theme', next ? 'dark' : 'light')
-      return next
-    })
-  }
+  const toggleTheme = () => setIsDark(prev => !prev)
 
   const [showAdminLogin, setShowAdminLogin] = useState(false)
 
