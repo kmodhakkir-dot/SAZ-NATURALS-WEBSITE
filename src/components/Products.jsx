@@ -6,7 +6,7 @@ import { getProducts, categories, WHATSAPP_URL } from "../services/productsServi
 import { KineticText } from "./ui/kinetic-text";
 import { useCart } from "../hooks/useCart";
 
-export default function Products({ onAddToCart }) {
+export default function Products() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,8 +15,8 @@ export default function Products({ onAddToCart }) {
   const { addItem } = useCart();
 
   useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data);
+    getProducts().then((result) => {
+      setProducts(result.data || []);
       setLoading(false);
     });
   }, []);
@@ -28,7 +28,6 @@ export default function Products({ onAddToCart }) {
 
   const handleAddToCart = (product) => {
     addItem(product, 1);
-    onAddToCart();
   };
 
   return (

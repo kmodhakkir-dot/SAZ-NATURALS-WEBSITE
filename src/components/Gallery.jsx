@@ -10,8 +10,8 @@ export default function Gallery() {
   const sectionRef = useScrollAnimation()
 
   useEffect(() => {
-    getGallery().then(data => {
-      setGallery(data)
+    getGallery().then(result => {
+      setGallery(result.data || [])
       setLoading(false)
     })
   }, [])
