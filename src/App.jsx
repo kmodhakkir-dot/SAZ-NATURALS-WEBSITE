@@ -1,5 +1,5 @@
-import { useState, Suspense, lazy, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useState, Suspense, lazy, useEffect, useCallback } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -35,6 +35,7 @@ function HomePage() {
     if (saved) return saved === 'dark'
     return false
   })
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark)
@@ -60,7 +61,7 @@ function HomePage() {
       {showAdminLogin && (
         <AdminLoginModal
           onClose={() => setShowAdminLogin(false)}
-          onSuccess={() => { setShowAdminLogin(false); window.location.hash = '/admin' }}
+          onSuccess={() => { setShowAdminLogin(false); navigate('/admin') }}
         />
       )}
     </>
