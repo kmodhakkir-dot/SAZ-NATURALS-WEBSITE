@@ -29,7 +29,7 @@ function SettingsTab() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getSettings().then(s => { setSettings(s); setLoading(false) })
+    getSettings().then(s => { setSettings(s.data); setLoading(false) })
   }, [])
 
   const handleSave = async () => {
@@ -116,9 +116,9 @@ export default function AdminDashboard({ onLogout, onBack }) {
         getProducts(),
         getGallery()
       ])
-      setOrders(o || [])
-      setProducts(p || [])
-      setGallery(g || [])
+      setOrders(o.data || [])
+      setProducts(p.data || [])
+      setGallery(g.data || [])
     } catch (err) {
       console.error('Error loading data:', err)
     }
@@ -220,7 +220,7 @@ export default function AdminDashboard({ onLogout, onBack }) {
     }
 
     const updated = await getProducts()
-    setProducts(updated || [])
+    setProducts(updated.data || [])
     setShowPForm(false)
   }
 
@@ -228,7 +228,7 @@ export default function AdminDashboard({ onLogout, onBack }) {
     if (!confirm('Delete product?')) return
     await deleteProduct(id)
     const updated = await getProducts()
-    setProducts(updated || [])
+    setProducts(updated.data || [])
   }
 
   const openNewG = () => {
@@ -257,7 +257,7 @@ export default function AdminDashboard({ onLogout, onBack }) {
     }
 
     const updated = await getGallery()
-    setGallery(updated || [])
+    setGallery(updated.data || [])
     setShowGForm(false)
   }
 
@@ -265,13 +265,13 @@ export default function AdminDashboard({ onLogout, onBack }) {
     if (!confirm('Delete?')) return
     await deleteGalleryItem(id)
     const updated = await getGallery()
-    setGallery(updated || [])
+    setGallery(updated.data || [])
   }
 
   const handleStatusChange = async (orderId, status) => {
     await updateOrderStatus(orderId, status)
     const updated = await getOrders()
-    setOrders(updated || [])
+    setOrders(updated.data || [])
   }
 
   const customers = useMemo(() => {
