@@ -48,7 +48,7 @@ function HomePage() {
 
   return (
     <>
-      <Navbar isDark={isDark} toggleTheme={toggleTheme} />
+      <Navbar isDark={isDark} toggleTheme={toggleTheme} onCartClick={() => navigate('/checkout')} />
       <main>
         <Hero isDark={isDark} />
         <About />
