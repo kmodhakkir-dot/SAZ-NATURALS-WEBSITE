@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { signIn, signOut, getCurrentUser, getUserProfile, isAdmin } from '../services/authService'
 import { getOrders, updateOrderStatus } from '../services/ordersService'
@@ -82,7 +83,8 @@ function SettingsTab() {
   )
 }
 
-export default function AdminDashboard({ onLogout, onBack }) {
+export default function AdminDashboard() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [checkingAuth, setCheckingAuth] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -166,7 +168,7 @@ export default function AdminDashboard({ onLogout, onBack }) {
     setIsLoggedIn(false)
     setEmail('')
     setPassword('')
-    onLogout()
+    navigate('/')
   }
 
   const [pForm, setPForm] = useState({ name:'', category:'hair', price:'', description:'', image:'', badge:'', stock:0 })
@@ -423,7 +425,7 @@ export default function AdminDashboard({ onLogout, onBack }) {
             </button>
             <button
               type="button"
-              onClick={onBack}
+              onClick={() => navigate('/')}
               className="w-full py-3 rounded-full bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200"
             >
               Back to Website
@@ -454,7 +456,7 @@ export default function AdminDashboard({ onLogout, onBack }) {
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={onBack}
+              onClick={() => navigate('/')}
               className="px-3 py-1.5 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700"
             >
               View Site
