@@ -1,5 +1,6 @@
 import { useState, Suspense, lazy, useEffect, useCallback } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -88,6 +89,7 @@ export default function App() {
           <Route path="/terms" element={<ErrorBoundary><TermsOfService /></ErrorBoundary>} />
           <Route path="/refund" element={<ErrorBoundary><RefundPolicy /></ErrorBoundary>} />
         </Routes>
+        <Analytics />
       </div>
     </CartProvider>
   )
