@@ -13,7 +13,7 @@ export default function Footer({ onAdminClick }) {
       navigate('/')
       setTimeout(() => {
         document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 100)
+      }, 500)
     }
   }
 
