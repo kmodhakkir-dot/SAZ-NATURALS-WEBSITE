@@ -700,6 +700,63 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {/* Order Detail Modal */}
+        {selOrder && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelOrder(null)}>
+            <div className="bg-white rounded-2xl p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-gray-900">Order #{selOrder.id}</h3>
+                <button onClick={() => setSelOrder(null)} className="text-gray-400 hover:text-gray-600 text-xl">✕</button>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <p className="text-sm font-medium text-gray-500 mb-1">Customer</p>
+                  <p className="font-semibold text-gray-900">{selOrder.customer_name}</p>
+                  <p className="text-sm text-gray-600">{selOrder.phone}</p>
+                  <p className="text-sm text-gray-600">{selOrder.region} · {selOrder.address}</p>
+                </div>
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <p className="text-sm font-medium text-gray-500 mb-1">Items</p>
+                  {selOrder.items?.map((item, idx) => (
+                    <div key={idx} className="flex justify-between text-sm py-1">
+                      <span className="text-gray-700">{item.name} × {item.quantity}</span>
+                      <span className="font-medium text-gray-900">TZS {(parseInt(String(item.price).replace(/[^0-9]/g, '')) * (item.quantity || 1)).toLocaleString()}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center bg-emerald-50 rounded-xl p-4">
+                  <span className="font-bold text-gray-900">Total</span>
+                  <span className="text-lg font-bold text-emerald-600">{fmt(selOrder.total)}</span>
+                </div>
+                {selOrder.payment_proof && (
+                  <div className="bg-gray-50 rounded-xl p-4">
+                    <p className="text-sm font-medium text-gray-500 mb-1">Payment Proof</p>
+                    <img src={selOrder.payment_proof} alt="Payment proof" className="max-h-48 rounded-lg" onError={e => e.target.style.display = 'none'} />
+                  </div>
+                )}
+                {selOrder.notes && (
+                  <div className="bg-gray-50 rounded-xl p-4">
+                    <p className="text-sm font-medium text-gray-500 mb-1">Notes</p>
+                    <p className="text-sm text-gray-600">{selOrder.notes}</p>
+                  </div>
+                )}
+                <div className="bg-gray-50 rounded-xl p-4 flex justify-between items-center">
+                  <span className="text-sm font-medium text-gray-500">Status</span>
+                  <select
+                    value={selOrder.status}
+                    onChange={e => { handleStatusChange(selOrder.id, e.target.value); setSelOrder({...selOrder, status: e.target.value}) }}
+                    className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium"
+                  >
+                    {ORDER_STATUSES_LIST.map(s => (
+                      <option key={s.value} value={s.value}>{s.label}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {tab === 'gallery' && (
           <div>
             <div className="flex items-center justify-between mb-4">

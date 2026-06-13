@@ -1,9 +1,23 @@
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
+import { getOrderById } from '../services/ordersService'
 import { motion } from 'framer-motion'
 
-export default function OrderSuccess({ order, onBack }) {
+export default function OrderSuccess() {
+  const { orderId } = useParams()
+  const navigate = useNavigate()
   const { clearCart } = useCart()
-  
+  const [order, setOrder] = useState(null)
+
+  useEffect(() => {
+    if (orderId) {
+      getOrderById(orderId).then(({ data }) => {
+        if (data) setOrder(data)
+      })
+    }
+  }, [orderId])
+
   return (
     <div className="min-h-screen pt-24 pb-20 px-4 bg-muted/30 flex items-center justify-center">
       <motion.div
@@ -21,20 +35,20 @@ export default function OrderSuccess({ order, onBack }) {
           ✓
         </motion.div>
         <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Order Submitted!</h1>
-        <p className="text-foreground mb-4">Thank you for your order, {order?.customerName}!</p>
-        <p className="text-sm text-foreground mb-6">Order ID: <span className="font-mono font-bold">{order?.id}</span></p>
+        <p className="text-foreground mb-4">Thank you for your order{order?.customerName ? `, ${order.customerName}` : ''}!</p>
+        <p className="text-sm text-foreground mb-6">Order ID: <span className="font-mono font-bold">{orderId || order?.id || 'N/A'}</span></p>
         
         <div className="bg-muted/50 rounded-xl p-4 text-left mb-6">
           <p className="text-sm text-foreground mb-2"><strong>What's next?</strong></p>
           <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
             <li>We'll verify your payment</li>
             <li>Process and pack your order</li>
-            <li>Contact you for delivery to {order?.region}</li>
+            <li>Contact you for delivery{order?.region ? ` to ${order.region}` : ''}</li>
           </ul>
         </div>
         
         <button
-          onClick={onBack}
+          onClick={() => navigate('/')}
           className="w-full py-3 rounded-full bg-primary-500 text-white font-semibold hover:bg-primary-600 transition-colors"
         >
           Continue Shopping
