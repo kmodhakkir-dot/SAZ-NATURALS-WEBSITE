@@ -47,7 +47,7 @@ function SettingsTab() {
     {key:'merchant_name',label:'Merchant Name',type:'text'},{key:'merchant_number',label:'Merchant Number',type:'text'},
     {key:'qr_image',label:'QR Code Image URL',type:'text'},{key:'contact_phone',label:'Contact Phone',type:'text'},
     {key:'contact_email',label:'Contact Email',type:'email'},{key:'whatsapp_number',label:'WhatsApp',type:'text'},
-    {key:'business_address',label:'Address',type:'text'},{key:'facebook',label:'Facebook URL',type:'text'},
+    {key:'business_address',label:'Address',type:'text'},
     {key:'instagram',label:'Instagram URL',type:'text'},{key:'tiktok',label:'TikTok',type:'text'},
     {key:'delivery_fee',label:'Delivery Fee (TZS)',type:'number'},{key:'min_order',label:'Min Order (TZS)',type:'number'}
   ]
