@@ -452,8 +452,8 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-14">
-          <div className="flex items-center gap-3">
-            <span className="text-xl">🌿</span>
+  <div className="flex items-center gap-3">
+            <img src="/images/saz-naturals.jpg" alt="SAZ Naturals" className="w-8 h-8 rounded-full object-cover" />
             <span className="font-bold text-gray-900 hidden sm:inline">SAZ Naturals CMS</span>
           </div>
           <div className="flex items-center gap-2">

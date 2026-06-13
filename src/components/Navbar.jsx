@@ -64,7 +64,7 @@ export default function Navbar({ isDark, toggleTheme, onCartClick }) {
             onClick={(e) => handleNavClick(e, '#home')}
             className="flex items-center gap-2 text-xl font-heading font-bold"
           >
-            <span className="text-2xl">🌿</span>
+            <img src="/images/saz-naturals.jpg" alt="SAZ Naturals" className="w-9 h-9 rounded-full object-cover border-2 border-white/30" />
             <span className={isScrolled || isDark ? 'text-foreground' : 'text-white'}>
               SAZ Naturals
             </span>

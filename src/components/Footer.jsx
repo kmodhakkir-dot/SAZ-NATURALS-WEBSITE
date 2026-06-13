@@ -23,7 +23,7 @@ export default function Footer({ onAdminClick }) {
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mb-10">
           <div>
             <div className="flex items-center gap-2 text-xl font-heading font-bold text-foreground mb-3">
-              <span aria-hidden="true">🌿</span>
+              <img src="/images/saz-naturals.jpg" alt="SAZ Naturals" className="w-9 h-9 rounded-full object-cover" />
               <span>SAZ Naturals</span>
             </div>
             <p className="text-sm text-foreground/70 mb-4">Natural Beauty Starts Here. Handcrafted in Tanzania.</p>
