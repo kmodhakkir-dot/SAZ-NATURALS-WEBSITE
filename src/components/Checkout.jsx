@@ -74,7 +74,7 @@ export default function Checkout() {
         clearCart()
         navigate('/success/' + result.data.id)
       } else {
-        alert('Failed to create order. Please try again.')
+        alert('Failed to create order: ' + (result.error || 'Unknown error'))
       }
     } catch (err) {
       alert('Error placing order: ' + err.message)
