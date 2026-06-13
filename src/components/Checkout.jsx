@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { createOrder } from '../services/ordersService'
 import { getSettings, TANZANIA_REGIONS } from '../services/settingsService'
 import { motion } from 'framer-motion'
 
-export default function Checkout({ onBack, onSuccess }) {
+export default function Checkout() {
+  const navigate = useNavigate()
   const { items, total, clearCart } = useCart()
   const [step, setStep] = useState(1)
   const [paymentProof, setPaymentProof] = useState(null)
@@ -21,7 +23,7 @@ export default function Checkout({ onBack, onSuccess }) {
 
   // Load settings from Supabase on mount
   useEffect(() => {
-    getSettings().then(s => setSettings(s))
+    getSettings().then(s => setSettings(s.data))
   }, [])
 
 
@@ -58,7 +60,7 @@ export default function Checkout({ onBack, onSuccess }) {
   const handleConfirmOrder = async () => {
     setSubmitting(true)
     try {
-      const order = await createOrder({
+      const result = await createOrder({
         customerName: formData.customerName,
         phone: formData.phone,
         address: formData.address,
@@ -68,9 +70,9 @@ export default function Checkout({ onBack, onSuccess }) {
         total: total,
         paymentProof: paymentProof
       })
-      if (order) {
+      if (result.data) {
         clearCart()
-        onSuccess(order)
+        navigate('/success/' + result.data.id)
       } else {
         alert('Failed to create order. Please try again.')
       }
@@ -89,7 +91,7 @@ export default function Checkout({ onBack, onSuccess }) {
           <h2 className="text-2xl font-bold text-foreground mb-4">Your cart is empty</h2>
           <p className="text-foreground mb-6">Add some products to your cart before checking out.</p>
           <button
-            onClick={onBack}
+            onClick={() => navigate('/')}
             className="px-6 py-3 bg-primary-500 text-white rounded-full font-semibold hover:bg-primary-600 transition-colors"
           >
             Continue Shopping
@@ -103,7 +105,7 @@ export default function Checkout({ onBack, onSuccess }) {
     <div className="min-h-screen pt-24 pb-20 px-4 bg-muted/30">
       <div className="max-w-4xl mx-auto">
         <button
-          onClick={onBack}
+          onClick={() => navigate('/')}
           className="mb-6 flex items-center gap-2 text-foreground hover:text-primary-500 transition-colors"
         >
           <span>←</span> Back to shopping
