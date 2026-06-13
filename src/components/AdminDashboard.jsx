@@ -50,7 +50,9 @@ function SettingsTab() {
     {key:'contact_email',label:'Contact Email',type:'email'},{key:'whatsapp_number',label:'WhatsApp',type:'text'},
     {key:'business_address',label:'Address',type:'text'},
     {key:'instagram',label:'Instagram URL',type:'text'},{key:'tiktok',label:'TikTok',type:'text'},
-    {key:'delivery_fee',label:'Delivery Fee (TZS)',type:'number'},{key:'min_order',label:'Min Order (TZS)',type:'number'}
+    {key:'delivery_fee',label:'Delivery Fee (TZS)',type:'number'},{key:'min_order',label:'Min Order (TZS)',type:'number'},
+    {key:'about_image',label:'About Section Image URL',type:'text'},
+    {key:'about_heading',label:'About Section Heading',type:'text'}
   ]
 
   return (

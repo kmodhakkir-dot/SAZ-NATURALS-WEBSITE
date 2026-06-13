@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { Backlight } from './ui/backlight'
 import { KineticText } from './ui/kinetic-text'
+import { getSettings } from '../services/settingsService'
 
 const values = [
   'Purity — No parabens, sulfates, or synthetic fragrances',
@@ -13,6 +15,13 @@ export default function About() {
   const sectionRef = useScrollAnimation()
   const imageRef = useScrollAnimation()
   const textRef = useScrollAnimation()
+  const [aboutImage, setAboutImage] = useState(null)
+
+  useEffect(() => {
+    getSettings().then(s => {
+      if (s.data?.about_image) setAboutImage(s.data.about_image)
+    })
+  }, [])
 
   return (
     <section id="about" className="py-20 sm:py-28 bg-muted/30" ref={sectionRef}>
@@ -31,10 +40,14 @@ export default function About() {
           <div className="lg:col-span-2 fade-in-section" ref={textRef}>
             <Backlight blur={50} className="rounded-2xl" color="from-primary-400/40 via-primary-500/30 to-primary-600/40">
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-primary-100 to-primary-500 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <span className="text-8xl mb-4 block">🌿</span>
-                  <p className="text-primary-700 font-heading text-xl font-semibold">Natural Beauty</p>
-                </div>
+                {aboutImage ? (
+                  <img src={aboutImage} alt="About SAZ Naturals" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="text-center p-8">
+                    <span className="text-8xl mb-4 block">🌿</span>
+                    <p className="text-primary-700 font-heading text-xl font-semibold">Natural Beauty</p>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-transparent" />
               </div>
             </Backlight>
