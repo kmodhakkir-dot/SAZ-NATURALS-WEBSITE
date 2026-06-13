@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
-import { signIn, signOut, getCurrentUser, getUserProfile, isAdmin } from '../services/authService'
+import { signIn, signOut, getCurrentUser, getUserProfile, isAdmin, requireAdmin } from '../services/authService'
 import { getOrders, updateOrderStatus } from '../services/ordersService'
 import { getProducts, addProduct, updateProduct, deleteProduct, categories } from '../services/productsService'
 import { getGallery, addGalleryItem, updateGalleryItem, deleteGalleryItem } from '../services/galleryService'
@@ -35,6 +35,7 @@ function SettingsTab() {
 
   const handleSave = async () => {
     if (!settings) return
+    await requireAdmin()
     await saveSettings(settings)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
@@ -206,6 +207,7 @@ export default function AdminDashboard() {
   }
 
   const saveP = async () => {
+    await requireAdmin()
     const data = {
       name: pForm.name,
       category: pForm.category,
@@ -230,6 +232,7 @@ export default function AdminDashboard() {
 
   const deleteP = async (id) => {
     if (!confirm('Delete product?')) return
+    await requireAdmin()
     await deleteProduct(id)
     const updated = await getProducts()
     setProducts(updated.data || [])
@@ -248,6 +251,7 @@ export default function AdminDashboard() {
   }
 
   const saveG = async () => {
+    await requireAdmin()
     const data = {
       title: gForm.title,
       description: gForm.description,
@@ -267,12 +271,14 @@ export default function AdminDashboard() {
 
   const deleteG = async (id) => {
     if (!confirm('Delete?')) return
+    await requireAdmin()
     await deleteGalleryItem(id)
     const updated = await getGallery()
     setGallery(updated.data || [])
   }
 
   const handleStatusChange = async (orderId, status) => {
+    await requireAdmin()
     await updateOrderStatus(orderId, status)
     const updated = await getOrders()
     setOrders(updated.data || [])

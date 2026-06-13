@@ -37,6 +37,14 @@ export async function isAdmin() {
 }
 
 
+export async function requireAdmin() {
+  const user = await getCurrentUser()
+  if (!user) throw new Error('Not authenticated')
+  const profile = await getUserProfile(user.id)
+  if (!profile || profile.role !== 'admin') throw new Error('Not authorized')
+  return user
+}
+
 export function onAuthChange(callback) {
   return supabase.auth.onAuthStateChange((event, session) => {
     callback(event, session)
